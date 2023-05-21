@@ -1,5 +1,35 @@
-lijiaquandewangzhan
-lijiaquandewangzhan
-lijiaquandewangzhan
-lijiaquandewangzhan
-lijiaquandewangzhan
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+data=pd.read_excel(r'E:\桌面\marvel_dc_characters.xlsx')
+print(len(data))
+cleaned=data.dropna()
+print(len(cleaned))
+sns.factorplot('Gender',data=cleaned,kind='count')
+plt.show()
+
+frame=cleaned.set_index('Gender')
+frame2=frame.loc['Agender']
+print(frame2.head())
+print(len(frame2))
+ax=sns.factorplot('Alignment',data=cleaned,kind='count')
+plt.show()
+ax=savefig(r'E:\桌面\2.jpg')
+fig=plt.figure(figsize=(15,4))
+ax1=fig.add_subplot(1,2,1)
+cleaned.Alignment[cleaned['Gender']=='Male'].value_counts().plot(kind='pie')
+ax1.set_title('The Analysis of Male and Alignment')
+
+male_alig=cleaned.Alignment[cleaned['Gender']=='Male'].value_counts()
+
+ax2=fig.add_subplot(1,2,2)
+cleanded.Alignment[cleaned['Gender']=='Female'].value_count().plot(kind='pie')
+ax2.set_title('The Analysis of Female and Alignment')
+female_alig=cleanded.Alignment[cleaned['Gender']=='Female'].value_counts()
+fig.show()
+fig.savefig(r'E:\桌面\3.jpg')
+
+statistic_alig=pd.concat([male_alig,female_alig],axis=1)
+statistic_alig.columns=['male_alig','female_alig']
+print("The statistic of Alignment:\n",statistic_alig)
